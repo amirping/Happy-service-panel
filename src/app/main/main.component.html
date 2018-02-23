@@ -1,0 +1,76 @@
+<div fxLayout="column" fxFlex>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span>Happy Service</span>
+      <button mat-icon-button (click)="Sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span class="example-spacer"></span>
+      <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <mat-icon >more_vert</mat-icon>
+      </button>
+      <mat-menu #appMenu="matMenu">
+        <button mat-menu-item [routerLink]="['settings']">
+          <mat-icon>settings</mat-icon>
+          <span>Settings</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>exit_to_app</mat-icon>
+          <span>Log out</span>
+        </button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container class="container" fxFlex>
+    <mat-sidenav mode="side" opened #Sidenav>
+      <mat-list class="sidenav-head">
+        <mat-list-item>
+          <ngx-avatar matListAvatar class="avatar" size="100" name="John Doe"></ngx-avatar>
+          <h2 matLine> Some Name </h2>
+          <p matLine>
+            <span> Same shit </span>
+          </p>
+        </mat-list-item>
+      </mat-list>
+      <mat-nav-list class="sidenav-menu">
+        <h3 mat-subheader>Menu</h3>
+        <mat-list-item [routerLink]="['analytics']" routerLinkActive="active-link-border">
+          <mat-icon matListIcon>assessment</mat-icon>
+          <h3 [routerLink]="['analytics']" routerLinkActive="active-link" matLine> Analytics </h3>
+          <p matLine>
+            <span> Real Time Static & Analytics </span>
+          </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item [routerLink]="['activity']" routerLinkActive="active-link-border">
+          <mat-icon matListIcon>widgets</mat-icon>
+          <h3 matLine [routerLink]="['activity']" routerLinkActive="active-link"> Activity Center </h3>
+          <p matLine>
+            <span> Manage Buisnes </span>
+          </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item [routerLink]="['options']" routerLinkActive="active-link-border">
+          <mat-icon matListIcon>dashboard</mat-icon>
+          <h3 [routerLink]="['options']" routerLinkActive="active-link" matLine> Options </h3>
+          <p matLine>
+            <span> Manage Options </span>
+          </p>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item [routerLink]="['full_log']" routerLinkActive="active-link-border">
+          <mat-icon matListIcon>storage</mat-icon>
+          <h3 matLine [routerLink]="['full_log']" routerLinkActive="active-link"> Full Log </h3>
+          <p matLine>
+            <span> A Full Log Section </span>
+          </p>
+        </mat-list-item>
+      </mat-nav-list>
+
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

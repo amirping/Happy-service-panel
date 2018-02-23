@@ -1,0 +1,8 @@
+:host {
+  display: flex;
+  flex: 1;
+  background: url('https://media.giphy.com/media/LhAzshvCqmipW/giphy.gif') black top center no-repeat;
+}
+.white{
+  color: white;
+}

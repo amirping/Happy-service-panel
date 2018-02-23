@@ -1,0 +1,27 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+mat-sidenav {
+  width: 320px;
+}
+
+.sidenav-head{
+  padding-top: 40px;
+}
+.avatar {
+  width: 100px !important;
+  height: 100px !important;
+}
+.active-link{
+  font-weight: bold !important;
+  color: #0984e3 !important;
+  text-transform: uppercase;
+}
+.active-link-border{
+  border-left: 4px solid #fd79a8;
+  transition: 300ms;
+}
+.sidenav-menu{
+  padding-top: 40px;
+}
