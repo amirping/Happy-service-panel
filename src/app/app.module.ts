@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {Routes, RouterModule, Router, ActivatedRoute , RouterLinkActive} from "@angular/router";
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule , FormGroupDirective, NgForm, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppMaterialModule } from './app-material/app-material.module';
 import { AppComponent } from './app.component';
@@ -15,7 +15,7 @@ import { AvatarModule } from 'ngx-avatar';
 import { FullLogComponent } from './full-log/full-log.component';
 import { ActivityComponent } from './activity/activity.component';
 import { SettingsComponent } from './settings/settings.component';
-
+import { ErrorStateMatcher} from '@angular/material/core';
 const routes: Routes = [
   {path: 'main', component: MainComponent , children: [
       {path: '', redirectTo: 'analytics',pathMatch: 'full'},
@@ -49,6 +49,7 @@ const routes: Routes = [
     FlexLayoutModule,
     FormsModule,
     AvatarModule,
+    ReactiveFormsModule,
     RouterModule.forRoot(routes, {useHash: true})
   ],
   providers: [],
