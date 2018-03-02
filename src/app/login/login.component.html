@@ -1,23 +1,29 @@
-<div class="page-vrtiual-xlogingxv1" fxLayout="column" fxLayoutAlign="center center" fxFill>
+<div class="page-vrtiual-xlogingxv1 mat-typography" fxLayout="column" fxLayoutAlign="center center" fxFill>
   <div fxLayout="row" fxLayoutAlign="center center" fxFill>
-    <div class="login-box mat-elevation-z2" fxLayout="row" fxLayoutAlign="center stretch">
-      <div class="logo">
-        <img src="assets/images/logo_x_388.png" alt="">
+    <div class="login-box mat-elevation-z2" fxLayout="row" fxLayout.lt-md="column" fxLayoutAlign="center stretch" fxFlex="45" fxFlex.md="80" fxFlex.lt-md="100">
+      <div class="logo" fxFlex="40">
+
+        <img src="assets/images/logo_x_388.png" alt="logo">
+        <p>  <small>if you have trouble to connect with your account , please connect the admin throw the email .</small>  </p>
       </div>
-      <div class="form" fxLayout="column" fxLayoutAlign="center stretch">
-        <div class="inputs-holder" fxLayout="column" fxLayoutAlign="center stretch">
-          <mat-form-field class="example-full-width">
-            <mat-icon matPrefix>lock_outline</mat-icon>
-            <input matInput placeholder="pseudo" type="text">
-            <mat-hint>Give your pseudo!</mat-hint>
-          </mat-form-field>
-          <mat-form-field class="example-full-width">
-            <mat-icon matPrefix>lock_outline</mat-icon>
-            <input matInput placeholder="passowrd" type="password">
-            <mat-hint>password here !</mat-hint>
-          </mat-form-field>
-        </div>
-        <button mat-raised-button color="accent">CONNECT</button>
+      <div class="form" fxLayout="column" fxLayoutAlign="center stretch" fxFlex="60">
+        <h2>Login</h2>
+        <h3>Happy Service Panel </h3>
+        <form (submit)="sigin($event)" fxLayout="column" fxLayoutAlign="center stretch">
+          <div class="inputs-holder" fxLayout="column" fxLayoutAlign="center stretch">
+            <mat-form-field class="example-full-width">
+              <mat-icon matPrefix>lock_outline</mat-icon>
+              <input matInput placeholder="pseudo" type="text" [(ngModel)]="user.pseudo" required name="pseudo">
+              <mat-hint>Give your pseudo!</mat-hint>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+              <mat-icon matPrefix>lock_outline</mat-icon>
+              <input matInput placeholder="passowrd" type="password" [(ngModel)]="user.password" required name="password">
+              <mat-hint>password here !</mat-hint>
+            </mat-form-field>
+          </div>
+          <button mat-raised-button color="accent" type="submit">CONNECT</button>
+        </form>
       </div>
     </div>
   </div>
