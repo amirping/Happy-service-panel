@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, Router, ActivatedRoute , RouterLinkActive } from "@angular/router";
+import { Routes, RouterModule, Router, ActivatedRoute , RouterLinkActive , CanActivate } from "@angular/router";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule , FormGroupDirective, NgForm, Validators, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -18,8 +18,9 @@ import { SettingsComponent } from './settings/settings.component';
 import { ErrorStateMatcher} from '@angular/material/core';
 import { AuthServiceService } from './services/auth-service.service';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthguardGuard } from './services/authguard.guard';
 const routes: Routes = [
-  {path: 'main', component: MainComponent , children: [
+  {path: 'main', component: MainComponent , canActivate: [AuthguardGuard], children: [
       {path: '', redirectTo: 'analytics',pathMatch: 'full'},
       {path: 'analytics', component: AnalyticsComponent},
       {path: 'options', component: OptionsComponent},
@@ -55,7 +56,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true})
   ],
-  providers: [AuthServiceService],
+  providers: [AuthServiceService,AuthguardGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

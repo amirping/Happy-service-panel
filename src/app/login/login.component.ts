@@ -16,11 +16,27 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
   }
+
   sigin(event: Event) {
+    // reach 3 layer validation Html -> Class ts -> service
     if ((this.user.pseudo.length != 0 && this.user.pseudo != null) && (this.user.password.length != 0 && this.user.password != null)) {
       // run http request to server
       //let snackBarRef = snackBar.open('Message archived');
-      this.authService.login(this.user.pseudo, this.user.password).subscribe(res => { console.log(res)}, (err) => {
+      this.authService.login(this.user.pseudo, this.user.password).subscribe(res => {
+      console.log(res)
+      if(res['ok'] == false){
+        this.snackBar.open(res['msg']+", try again", "ok", {
+          duration: 3000,
+        });
+      }
+      else
+      {
+        this.authService.setSession(res);
+        this.snackBar.open("Welcome ! , successfully connected", "Nice", {
+          duration: 3000,
+        });
+      }
+    }, (err) => {
         console.log(err);
         this.snackBar.open("Sorry , we can't reach the server ,try again ", "ok", {
           duration: 3000,
