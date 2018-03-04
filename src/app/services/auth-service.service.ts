@@ -23,7 +23,7 @@ export class AuthServiceService {
     localStorage.setItem("created_at", authResult.created_at);
   }
 
-  logout() {
+  public logout() {
     localStorage.removeItem("token");
     localStorage.removeItem("created_at");
   }
@@ -35,12 +35,37 @@ export class AuthServiceService {
   public isAuthenticated() {
     const token = localStorage.getItem('token');
     const date = localStorage.getItem('created_at');
+    let promise;
     // send to api
     // for test return true
-    if (token === null) {
-      return false
-    }
-    return true;
+    console.log("what he gonna say ... !")
+    console.log("i will return soon")
+      if (token === null || date === null) {
+        console.log("resolving False")
+        promise = Promise.reject(false);
+        return promise
+      }
+      else {
+        // api check
+        console.log("Http started to api")
+        return this.http.post(this.tokenApi, { token, date }).map(res => {
+          let token_stat = res['isToeknUp'];
+          return token_stat
+        }).toPromise();
+
+ // ok i know that it look crasy but i make it work XD promise on http with externel resolving 
+        // subscribe(res => {
+        //   let token_stat = res['isToeknUp'];
+        //   console.log(res);
+        //   console.log("resolving result")
+        //   resolve(token_stat)
+        // }, err => {
+        //   console.log("started here ")
+        //   console.log(err);
+        //   reject(err);
+        // });
+      }
+
   }
 
   isLoggedOut() {

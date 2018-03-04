@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material';
 import { AuthServiceService } from '../services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
     pseudo: "",
     password: ""
   }
-  constructor(public snackBar: MatSnackBar, private authService: AuthServiceService) { }
+  constructor(public snackBar: MatSnackBar, private authService: AuthServiceService, public router : Router) { }
 
   ngOnInit() {
   }
@@ -23,20 +24,23 @@ export class LoginComponent implements OnInit {
       // run http request to server
       //let snackBarRef = snackBar.open('Message archived');
       this.authService.login(this.user.pseudo, this.user.password).subscribe(res => {
-      console.log(res)
-      if(res['ok'] == false){
-        this.snackBar.open(res['msg']+", try again", "ok", {
-          duration: 3000,
-        });
-      }
-      else
-      {
-        this.authService.setSession(res);
-        this.snackBar.open("Welcome ! , successfully connected", "Nice", {
-          duration: 3000,
-        });
-      }
-    }, (err) => {
+        console.log(res)
+        if (res['ok'] == false) {
+          this.snackBar.open(res['msg'] + ", try again", "ok", {
+            duration: 3000,
+          });
+        }
+        else {
+          let snackBarRef ;
+          this.authService.setSession(res);
+          snackBarRef = this.snackBar.open("Welcome ! , successfully connected", "Nice", {
+            duration: 3000,
+          });
+          snackBarRef.afterDismissed().subscribe(() => {
+            this.router.navigate(['main']);
+          });
+        }
+      }, (err) => {
         console.log(err);
         this.snackBar.open("Sorry , we can't reach the server ,try again ", "ok", {
           duration: 3000,
