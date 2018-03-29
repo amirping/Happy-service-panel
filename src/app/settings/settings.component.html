@@ -1,3 +1,75 @@
-<p>
-  settings works!
-</p>
+<mat-tab-group>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>account_circle</mat-icon> Account settings
+    </ng-template>
+    <div flexLayout="column" fxFlex class="tab-content">
+      <h3>Account settings</h3>
+      <p> edit your account information , and security .</p>
+      <mat-accordion>
+        <mat-expansion-panel [expanded]="true" flexLayout="column">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Personal data
+            </mat-panel-title>
+            <mat-panel-description>
+              edit name , resto name ....
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <form flexLayout="column" class="form" (submit)="update_personal($event)" fxLayoutAlign="start stretch">
+            <div class="" flexLayout="row">
+              <mat-form-field fxFlex>
+                <input matInput placeholder="Name" name="name" required [(ngModel)]="user_personal.name">
+              </mat-form-field>
+            </div>
+            <div class="" flexLayout="row">
+              <mat-form-field fxFlex>
+                <input matInput name="last_name" placeholder="last name" required [(ngModel)]="user_personal.last_name">
+              </mat-form-field>
+            </div>
+            <div class="" flexLayout="row">
+              <mat-form-field fxFlex>
+                <input matInput placeholder="Resto Name" name="resto_name" required [(ngModel)]="user_personal.resto_name">
+              </mat-form-field>
+            </div>
+            <div flexLayout="row" fxLayoutAlign="end">
+              <button mat-raised-button type="submit" color="primary">Save Change</button>
+            </div>
+          </form>
+        </mat-expansion-panel>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              Security info
+            </mat-panel-title>
+            <mat-panel-description>
+              Password edit .
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <form flexLayout="column" class="form" (submit)="update_security($event)" fxLayoutAlign="start stretch">
+            <div class="" flexLayout="row">
+            <mat-form-field fxFlex>
+              <input matInput placeholder="old password" name="old_password" [(ngModel)]="user_security.old_password">
+            </mat-form-field>
+          </div>
+          <div class="" flexLayout="row">
+            <mat-form-field fxFlex>
+              <input matInput placeholder="New Password" name="new_password" [(ngModel)]="user_security.new_password">
+            </mat-form-field>
+          </div>
+          <div class="" flexLayout="row" fxLayoutAlign="end">
+            <button mat-raised-button type="submit" name="button" color="primary">Save chnages</button>
+          </div>
+          </form>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+  </mat-tab>
+  <mat-tab>
+    <ng-template mat-tab-label>
+      <mat-icon>build</mat-icon> Application settings
+    </ng-template>
+    <h1>Terrible sushi restaurants</h1>
+    <p>...</p>
+  </mat-tab>
+</mat-tab-group>

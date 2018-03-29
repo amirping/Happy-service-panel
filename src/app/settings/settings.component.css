@@ -1,0 +1,6 @@
+.tab-content{
+  padding: 5px;
+}
+.form{
+  flex-direction: column !important;
+}
