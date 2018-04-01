@@ -19,9 +19,10 @@ import { ErrorStateMatcher} from '@angular/material/core';
 import { AuthServiceService } from './services/auth-service.service';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthguardGuard } from './services/authguard.guard';
+import { UserService } from './services/user.service';
 const routes: Routes = [
   {path: 'main', component: MainComponent , canActivate: [AuthguardGuard], children: [
-      {path: '', redirectTo: 'analytics',pathMatch: 'full'},
+      {path: '', redirectTo: 'analytics', pathMatch: 'full'},
       {path: 'analytics', component: AnalyticsComponent},
       {path: 'options', component: OptionsComponent},
       {path: 'full_log', component: FullLogComponent},
@@ -29,7 +30,7 @@ const routes: Routes = [
       {path: 'settings', component: SettingsComponent},
     ]},
   {path: 'login', component: LoginComponent},
-  {path: '', redirectTo: 'login',pathMatch: 'full'},
+  {path: '', redirectTo: 'login', pathMatch: 'full'},
   {path: '**', component: NopageComponent}
 ];
 
@@ -56,7 +57,7 @@ const routes: Routes = [
     HttpClientModule,
     RouterModule.forRoot(routes, {useHash: true})
   ],
-  providers: [AuthServiceService,AuthguardGuard],
+  providers: [AuthServiceService, AuthguardGuard, UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

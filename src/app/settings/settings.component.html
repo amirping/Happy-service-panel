@@ -19,17 +19,18 @@
           <form flexLayout="column" class="form" (submit)="update_personal($event)" fxLayoutAlign="start stretch">
             <div class="" flexLayout="row">
               <mat-form-field fxFlex>
-                <input matInput placeholder="Name" name="name" required [(ngModel)]="user_personal.name">
+                <input matInput placeholder="Name" name="name" required [(ngModel)]="curr_user.name">
               </mat-form-field>
             </div>
             <div class="" flexLayout="row">
               <mat-form-field fxFlex>
-                <input matInput name="last_name" placeholder="last name" required [(ngModel)]="user_personal.last_name">
+                <input matInput name="last_name" placeholder="last name" required [(ngModel)]="curr_user.last_name">
               </mat-form-field>
             </div>
             <div class="" flexLayout="row">
               <mat-form-field fxFlex>
-                <input matInput placeholder="Resto Name" name="resto_name" required [(ngModel)]="user_personal.resto_name">
+<input matInput placeholder="Resto Name" name="resto_name" required [(ngModel)]="curr_user.resto_name">
+
               </mat-form-field>
             </div>
             <div flexLayout="row" fxLayoutAlign="end">
