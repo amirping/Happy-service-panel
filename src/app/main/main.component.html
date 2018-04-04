@@ -25,10 +25,10 @@
     <mat-sidenav mode="side" opened #Sidenav>
       <mat-list class="sidenav-head">
         <mat-list-item>
-          <ngx-avatar matListAvatar class="avatar" size="100" name="John Doe"></ngx-avatar>
-          <h2 matLine> Some Name </h2>
+          <ngx-avatar matListAvatar class="avatar" size="100" name="{{curr_user.name}} {{curr_user.last_name}}"></ngx-avatar>
+          <h2 matLine>{{curr_user.pseudo}}</h2>
           <p matLine>
-            <span> Same shit </span>
+            <span> {{curr_user.name}} {{curr_user.last_name}} </span>
           </p>
         </mat-list-item>
       </mat-list>

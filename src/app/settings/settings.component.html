@@ -29,7 +29,7 @@
             </div>
             <div class="" flexLayout="row">
               <mat-form-field fxFlex>
-<input matInput placeholder="Resto Name" name="resto_name" required [(ngModel)]="curr_user.resto_name">
+                <input matInput placeholder="Resto Name" name="resto_name" required [(ngModel)]="curr_user.resto_name">
 
               </mat-form-field>
             </div>
@@ -47,20 +47,20 @@
               Password edit .
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <form flexLayout="column" class="form" (submit)="update_security($event)" fxLayoutAlign="start stretch">
+          <form flexLayout="column" class="form" (submit)="update_security($event)" fxLayoutAlign="start stretch" autocomplete="off">
             <div class="" flexLayout="row">
-            <mat-form-field fxFlex>
-              <input matInput placeholder="old password" name="old_password" [(ngModel)]="user_security.old_password">
-            </mat-form-field>
-          </div>
-          <div class="" flexLayout="row">
-            <mat-form-field fxFlex>
-              <input matInput placeholder="New Password" name="new_password" [(ngModel)]="user_security.new_password">
-            </mat-form-field>
-          </div>
-          <div class="" flexLayout="row" fxLayoutAlign="end">
-            <button mat-raised-button type="submit" name="button" color="primary">Save chnages</button>
-          </div>
+              <mat-form-field fxFlex>
+                <input matInput placeholder="old password" type="password" autocomplete="off" required name="old_password" [(ngModel)]="user_security.old_password">
+              </mat-form-field>
+            </div>
+            <div class="" flexLayout="row">
+              <mat-form-field fxFlex>
+                <input matInput placeholder="New Password" type="password" required name="new_password" [(ngModel)]="user_security.new_password">
+              </mat-form-field>
+            </div>
+            <div class="" flexLayout="row" fxLayoutAlign="end">
+              <button mat-raised-button type="submit" name="button" color="primary">Save chnages</button>
+            </div>
           </form>
         </mat-expansion-panel>
       </mat-accordion>
