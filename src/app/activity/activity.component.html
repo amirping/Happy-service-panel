@@ -1,7 +1,6 @@
 <mat-tab-group>
   <mat-tab label="Resto">
-    <h1>Some tab content</h1>
-    <p>...</p>
+    <p>Edit your Resto things like menu and promo , other feature will be added soon</p>
     <mat-accordion displayMode="default" [multi]="true" [hideToggle]="false">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -14,29 +13,52 @@
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
           <p>This is the primary content of the panel.</p>
-          
+          <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+            <h3>Add new item to the menu</h3>
+            <div fxFlex fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+              <form #additem="ngForm" (ngSubmit)="null" fxFlex fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="10px">
+                <mat-form-field fxFlex>
+                  <mat-select fxFlex placeholder="Select categorie" [(ngModel)]="menu.cat" name="menu_cat" required>
+                    <mat-option *ngFor="let choice of choices" [value]="choice.id">
+                      {{choice.name}}
+                    </mat-option>
+                  </mat-select>
+                  <mat-hint>Select the item categorie that he belong to</mat-hint>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                  <input fxFlex matInput type="text" required placeholder="the name of the item" name="menu_item" [(ngModel)]="menu.item" #menu_item="ngModel">
+                  <mat-hint>the name of the item</mat-hint>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                  <input fxFlex matInput type="number" required placeholder="the price" name="menu_price" [(ngModel)]="menu.price" #item_price="ngModel">
+                  <mat-hint>price of the item</mat-hint>
+                </mat-form-field>
+                <button [disabled]="menu.cat.length == 0||menu.item.lenght == 0 || menu.price.length == 0" mat-button-raised type="submit" (click)="null">add</button>
+              </form>
+            </div>
+          </div>
         </ng-template>
       </mat-expansion-panel>
       <mat-expansion-panel [hideToggle]="false">
-          <mat-expansion-panel-header>
-              <mat-panel-title>Promo</mat-panel-title>
-              <mat-panel-description>Add special promo , edit , consult</mat-panel-description>
-          </mat-expansion-panel-header>
-          <ng-template matExpansionPanelContent>
-            <p>all promo list goes here </p>
-          </ng-template>
-          <mat-action-row>
-              <button mat-button (click)="onAction(event)">Action1</button>
-              <button mat-button (click)="onAction(event)">Action2</button>
-          </mat-action-row>
+        <mat-expansion-panel-header>
+          <mat-panel-title>Promo</mat-panel-title>
+          <mat-panel-description>Add special promo , edit , consult</mat-panel-description>
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+          <p>all promo list goes here </p>
+        </ng-template>
+        <mat-action-row>
+          <button mat-button (click)="onAction(event)">Action1</button>
+          <button mat-button (click)="onAction(event)">Action2</button>
+        </mat-action-row>
       </mat-expansion-panel>
     </mat-accordion>
   </mat-tab>
-  <mat-tab label="Reservation">
+  <mat-tab label="Reservation Activity">
     <h1>Some more tab content</h1>
     <p>...</p>
   </mat-tab>
-  <mat-tab label="Orders">
+  <mat-tab label="Orders Activity">
     <h1>Some more tab content</h1>
     <p>...</p>
   </mat-tab>

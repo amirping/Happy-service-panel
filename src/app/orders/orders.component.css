@@ -1,0 +1,11 @@
+:host{
+    height: 100%;
+}
+.order-box{
+    width: auto;
+    height: auto;
+    padding: 5px;
+    height: calc( 100% - 64px );
+    overflow-y: scroll;
+}
+

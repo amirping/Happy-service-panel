@@ -6,8 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./activity.component.css']
 })
 export class ActivityComponent implements OnInit {
-
-  constructor() { }
+  choices: Array<any> = [];
+  menu = {
+    cat: '',
+    item: '',
+    price: ''
+  };
+  constructor() {
+    this.choices.push({ id: '1', name: 'dishes' }, { id: '2', name: 'pizza' }, { id: '3', name: 'sandwiches' });
+  }
 
   ngOnInit() {
   }

@@ -1,0 +1,29 @@
+<mat-toolbar color="accent">
+  Ordering Activity
+  <span fxFlex></span>
+  <mat-icon>wifi_tethering</mat-icon>
+  <mat-icon>portable_wifi_off</mat-icon>
+</mat-toolbar>
+<div class="order-box" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
+  <mat-card *ngFor="let item of order_list">
+      <mat-card-title-group>
+          <mat-card-title>Order : #{{item.orderId}}</mat-card-title>
+          <mat-card-subtitle>user : {{item.user}}</mat-card-subtitle>
+          <mat-card-subtitle>Passed at : {{item.order_timestamp | date:"HH:mm - dd/MM/yyyy"  }}</mat-card-subtitle>
+      </mat-card-title-group>
+      <mat-card-content>
+          <mat-list>
+              <mat-list-item *ngFor="let item_ord of item.order_items">
+                  {{item_ord.number}} - {{item_ord.menu_item}} | {{item_ord.extra}}
+                  <button mat-icon-button (click)="showInfo(item_ord)">
+                    <mat-icon>info</mat-icon>
+                  </button>
+              </mat-list-item>
+          </mat-list>
+      </mat-card-content>
+      <mat-card-actions align="start">
+          <button mat-raised-button (click)="onAction(event)" color="primary">Accept Order</button>
+          <button mat-raised-button (click)="onAction(event)" color="warn">Reject order</button>  
+      </mat-card-actions>
+  </mat-card>
+</div>
