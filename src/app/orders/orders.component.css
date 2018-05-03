@@ -8,4 +8,8 @@
     height: calc( 100% - 64px );
     overflow-y: scroll;
 }
+.order-card {
+  width: 300px;
+}
+
 

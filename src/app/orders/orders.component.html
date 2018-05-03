@@ -1,14 +1,14 @@
 <mat-toolbar color="accent">
   Ordering Activity
   <span fxFlex></span>
-  <mat-icon>wifi_tethering</mat-icon>
-  <mat-icon>portable_wifi_off</mat-icon>
+  <mat-icon *ngIf="isConnected">wifi_tethering</mat-icon>
+  <mat-icon *ngIf="!isConnected">portable_wifi_off</mat-icon>
 </mat-toolbar>
 <div class="order-box" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
-  <mat-card *ngFor="let item of order_list">
+  <mat-card *ngFor="let item of order_list" class="order-card">
       <mat-card-title-group>
           <mat-card-title>Order : #{{item.orderId}}</mat-card-title>
-          <mat-card-subtitle>user : {{item.user}}</mat-card-subtitle>
+          <mat-card-subtitle>Client  : {{item.user}}</mat-card-subtitle>
           <mat-card-subtitle>Passed at : {{item.order_timestamp | date:"HH:mm - dd/MM/yyyy"  }}</mat-card-subtitle>
       </mat-card-title-group>
       <mat-card-content>

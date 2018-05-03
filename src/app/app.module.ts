@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AuthguardGuard } from './services/authguard.guard';
 import { UserService } from './services/user.service';
 import { OrdersComponent, OrderItemInfoComponent } from './orders/orders.component';
+import { RtSocketService } from './services/rt-socket.service';
 const routes: Routes = [
   {
     path: 'main', component: MainComponent, canActivate: [AuthguardGuard], children: [
@@ -63,7 +64,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { useHash: true })
   ],
   entryComponents: [OrderItemInfoComponent],
-  providers: [AuthServiceService, AuthguardGuard, UserService],
+  providers: [AuthServiceService, AuthguardGuard, UserService, RtSocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
