@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import * as socketIo from 'socket.io-client';
 import { RtEvent } from '../class/rt-event';
 import { Order } from '../class/order';
-const SERVER_URL = 'https://a522264b.ngrok.io';
+const SERVER_URL = 'https://8d3301cd.ngrok.io';
 @Injectable()
 // tslint:disable-next-line:class-name
 export class RtSocketService {
@@ -29,6 +29,12 @@ export class RtSocketService {
   public onGetOrder(): Observable<Order> {
     return new Observable<Order>(observer => {
       this.socket.on('getOrder', (data: Order) => observer.next(data));
+    });
+  }
+
+  public onGetUpdate(): Observable<any> {
+    return new Observable<any>(observer => {
+      this.socket.on('getUpdate', (data: any) => observer.next(data));
     });
   }
 

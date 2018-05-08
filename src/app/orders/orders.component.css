@@ -7,6 +7,8 @@
     padding: 5px;
     height: calc( 100% - 64px );
     overflow-y: scroll;
+    background: hsla(202, 18%, 88%, 0.904);
+
 }
 .order-card {
   width: 300px;

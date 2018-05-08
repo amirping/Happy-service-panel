@@ -6,24 +6,33 @@
 </mat-toolbar>
 <div class="order-box" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
   <mat-card *ngFor="let item of order_list" class="order-card">
-      <mat-card-title-group>
-          <mat-card-title>Order : #{{item.orderId}}</mat-card-title>
-          <mat-card-subtitle>Client  : {{item.user}}</mat-card-subtitle>
-          <mat-card-subtitle>Passed at : {{item.order_timestamp | date:"HH:mm - dd/MM/yyyy"  }}</mat-card-subtitle>
-      </mat-card-title-group>
-      <mat-card-content>
-          <mat-list>
-              <mat-list-item *ngFor="let item_ord of item.order_items">
-                  {{item_ord.number}} - {{item_ord.menu_item}} | {{item_ord.extra}}
-                  <button mat-icon-button (click)="showInfo(item_ord)">
-                    <mat-icon>info</mat-icon>
-                  </button>
-              </mat-list-item>
-          </mat-list>
-      </mat-card-content>
-      <mat-card-actions align="start">
-          <button mat-raised-button (click)="onAction(event)" color="primary">Accept Order</button>
-          <button mat-raised-button (click)="onAction(event)" color="warn">Reject order</button>  
-      </mat-card-actions>
+    <mat-card-title-group>
+      <mat-card-title>Order : #{{item.orderId}}</mat-card-title>
+      <mat-card-subtitle>Client : {{item.user}}</mat-card-subtitle>
+      <mat-card-subtitle>Passed at : {{item.order_timestamp | date:"HH:mm - dd/MM/yyyy" }}</mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content>
+      <mat-list>
+        <mat-list-item *ngFor="let item_ord of item.order_items">
+          {{item_ord.number}} - {{item_ord.menu_item}} | {{item_ord.extra}}
+          <button mat-icon-button (click)="showInfo(item_ord)">
+            <mat-icon>info</mat-icon>
+          </button>
+        </mat-list-item>
+      </mat-list>
+    </mat-card-content>
+    <mat-card-actions align="start" *ngIf="mangeOrder == true">
+      <button mat-raised-button (click)="onAction(event)" color="primary">Accept Order</button>
+      <button mat-raised-button (click)="onAction(event)" color="warn">Reject order</button>
+    </mat-card-actions>
+    <mat-card-actions *ngIf="item.orderStat != 1 && item.orderStat != 2">
+        <button mat-raised-button (click)="removeOrder(event,item.orderId)" color="warn">Remove from list</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card *ngIf="order_list.length === 0">
+
+    <mat-card-content>
+      There is no actevity right now :D
+    </mat-card-content>
   </mat-card>
 </div>

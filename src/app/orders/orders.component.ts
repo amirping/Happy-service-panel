@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Inject } from '@angular/core';
 import { Order } from '../class/order';
 import { OrderItems } from '../class/order-items';
 import { HttpClient } from '@angular/common/http';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { RtSocketService } from '../services/rt-socket.service';
 import { RtEvent } from '../class/rt-event';
@@ -19,14 +19,14 @@ export class OrdersComponent implements OnInit {
   order_list: Array<Order> = [];
   ioConnection: any;
   isConnected: Boolean = false;
-  constructor(private _http: HttpClient, public dialog: MatDialog, private _rtSocket: RtSocketService) {
+  constructor(private _http: HttpClient, public dialog: MatDialog, private _rtSocket: RtSocketService, public snackBar: MatSnackBar) {
     const time = Date.now();
     const e1 = new OrderItems('makloub escalop', 2, 'large', '55661161', 'xD you are so funny dude,ok since im hungry,i think \
     i want 2 large makloub escalop');
     const e2 = new OrderItems('Coca', 2, 'big', '55661161', 'i think i will need also 2 big coca-cola ');
     const o1 = new Order('facebook : monkey de Lofy', '5548556', 1, [e1, e2], Number.parseInt(time + ''));
     const o2 = new Order('Slack: Black Sworeded', '477742266', 1, [e1, e2], time);
-    this.order_list.push(o1, o2);
+    // this.order_list.push(o1, o2);
     // if type === current get only from socket
     // if type === fulllog get all from socket + db
     // if mangeOrder === true ,  allow the user to manager the orders
@@ -37,7 +37,7 @@ export class OrdersComponent implements OnInit {
   }
 
   showInfo(order_item: OrderItems): void {
-    let dialogRef = this.dialog.open(OrderItemInfoComponent, {
+    const dialogRef = this.dialog.open(OrderItemInfoComponent, {
       width: '600px',
       data: { order_item: order_item }
     });
@@ -61,9 +61,33 @@ export class OrdersComponent implements OnInit {
         this.notify('neworder');
       });
 
+    this._rtSocket.onGetUpdate()
+      .subscribe((data: any) => {
+        // have multi data type 
+        /*
+         order on server memory 
+         current user number 
+         life session 
+         etc ...
+         */
+        const update_orders = data['update_order'];
+        update_orders.forEach(order => {
+          let e = new Order(order.user, order.sessionId, order.order_stat, order.order_items, order.order_timestamp);
+          this.order_list.push(e);
+        });
+      });
+
     this._rtSocket.onCancelOrder()
       .subscribe((data: any) => {
         console.log(data);
+        this.order_list.forEach(order => {
+          if (order.$orderId === data) {
+            // alert user to cancel 
+            this.openSnackBar('client cancel order #' + data + ' !! ', 'i got it');
+            // chnage flag
+            order.$orderStat = -1;
+          }
+        });
       });
 
     this._rtSocket.onEvent(RtEvent.CONNECT)
@@ -107,6 +131,20 @@ export class OrdersComponent implements OnInit {
     }
     audio.load();
     audio.play();
+  }
+  openSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {
+      duration: 9000,
+    });
+  }
+  removeOrder(ev, sessionId) {
+    let t_list = this.order_list;
+    this.order_list.forEach(function(element, i) {
+      if (element.$orderId === sessionId) {
+        t_list.splice(i, 1);
+        return ;
+      }
+    });
   }
 
 }
