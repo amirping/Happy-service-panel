@@ -33,7 +33,8 @@
                   <input fxFlex matInput type="number" required placeholder="the price" name="menu_price" [(ngModel)]="menu.price" #item_price="ngModel">
                   <mat-hint>price of the item</mat-hint>
                 </mat-form-field>
-                <button [disabled]="menu.cat.length == 0||menu.item.lenght == 0 || menu.price.length == 0" mat-button-raised type="submit" (click)="null">add</button>
+                <button [disabled]="menu.cat.length == 0||menu.item.lenght == 0 || menu.price.length == 0" mat-button-raised type="submit"
+                  (click)="null">add</button>
               </form>
             </div>
           </div>
@@ -54,13 +55,10 @@
       </mat-expansion-panel>
     </mat-accordion>
   </mat-tab>
-  <mat-tab label="Reservation Activity">
-    <h1>Some more tab content</h1>
-    <p>...</p>
-  </mat-tab>
-  <mat-tab label="Orders Activity">
+  <mat-tab label="Full Activity">
     <h1>Full Actevity</h1>
     <div fxLayout="row" fxLayoutAlign="start start" fxLayoutGap="10px" fxFlex>
+      <app-reservations [showType]="fulllog" [mangeReservation]=true></app-reservations>
       <app-orders [showType]="fulllog" [mangeOrder]=true></app-orders>
     </div>
   </mat-tab>

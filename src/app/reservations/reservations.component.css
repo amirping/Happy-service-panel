@@ -1,0 +1,17 @@
+:host {
+  height: 100%;
+}
+
+.reservation-box {
+  width: auto;
+  height: auto;
+  padding: 5px;
+  height: calc( 100% - 64px);
+  overflow-y: scroll;
+  background: hsla(202, 18%, 88%, 0.904);
+}
+
+.reservation-card {
+  width: 300px;
+}
+

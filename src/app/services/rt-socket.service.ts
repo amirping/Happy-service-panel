@@ -3,7 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import * as socketIo from 'socket.io-client';
 import { RtEvent } from '../class/rt-event';
 import { Order } from '../class/order';
-const SERVER_URL = 'https://8d3301cd.ngrok.io';
+import { Reservation } from '../class/reservation';
+const SERVER_URL = 'https://65ce402e.ngrok.io';
 @Injectable()
 // tslint:disable-next-line:class-name
 export class RtSocketService {
@@ -18,6 +19,13 @@ export class RtSocketService {
 
   public send(message): void {
     this.socket.emit('message', message);
+  }
+
+  /**
+   * orderSendAction
+   */
+  public orderSendAction(orderid: string, sessionId: string, action: string) {
+    this.socket.emit(action, { 'orderId': orderid, 'seesionId': sessionId });
   }
 
   public onMessage(): Observable<any> {
@@ -45,9 +53,9 @@ export class RtSocketService {
   }
 
   // note : change any to reservation type after create reservation class
-  public onGetReservation(): Observable<any> {
-    return new Observable<any>(observer => {
-      this.socket.on('getReservation', (data: any) => observer.next(data));
+  public onGetReservation(): Observable<Reservation> {
+    return new Observable<Reservation>(observer => {
+      this.socket.on('getReservation', (data: Reservation) => observer.next(data));
     });
   }
 
@@ -55,6 +63,13 @@ export class RtSocketService {
     return new Observable<any>(observer => {
       this.socket.on('cancelReservation', (data: any) => observer.next(data));
     });
+  }
+
+  /**
+  * ReservationSendAction
+  */
+  public ReservationSendAction(reservationid: string, sessionId: string, action: string) {
+    this.socket.emit(action, { 'reservationId': reservationid, 'seesionId': sessionId });
   }
 
   public onEvent(event: RtEvent): Observable<any> {

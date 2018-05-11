@@ -6,6 +6,8 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatDialog, MatSnackBar } from '@angular/
 import { Observable } from 'rxjs/Observable';
 import { RtSocketService } from '../services/rt-socket.service';
 import { RtEvent } from '../class/rt-event';
+import { OrderService } from '../services/order.service';
+import { ChangeDetectorRef } from '@angular/core';
 const SERVER_URL = 'https://a522264b.ngrok.io';
 
 @Component({
@@ -19,7 +21,10 @@ export class OrdersComponent implements OnInit {
   order_list: Array<Order> = [];
   ioConnection: any;
   isConnected: Boolean = false;
-  constructor(private _http: HttpClient, public dialog: MatDialog, private _rtSocket: RtSocketService, public snackBar: MatSnackBar) {
+  constructor(
+    private ref: ChangeDetectorRef,
+    private _http: HttpClient, public dialog: MatDialog, private _rtSocket: RtSocketService, public snackBar: MatSnackBar,
+    private _orderService: OrderService) {
     const time = Date.now();
     const e1 = new OrderItems('makloub escalop', 2, 'large', '55661161', 'xD you are so funny dude,ok since im hungry,i think \
     i want 2 large makloub escalop');
@@ -55,7 +60,7 @@ export class OrdersComponent implements OnInit {
       .subscribe((order: any) => {
         console.log('we got new order');
         console.log(order);
-        let e = new Order(order.user, order.sessionId, order.order_stat, order.order_items, order.order_timestamp);
+        let e = new Order(order.user, order.sessionId, order.order_stat, order.order_items, order.order_timestamp, order._id);
         this.order_list.push(e);
         // play notif sound
         this.notify('neworder');
@@ -63,16 +68,20 @@ export class OrdersComponent implements OnInit {
 
     this._rtSocket.onGetUpdate()
       .subscribe((data: any) => {
-        // have multi data type 
+        // have multi data type
         /*
-         order on server memory 
-         current user number 
-         life session 
+         order on server memory
+         current user number
+         life session
          etc ...
          */
         const update_orders = data['update_order'];
+        if (update_orders.length === 0) {
+          this.order_list = [];
+        }
         update_orders.forEach(order => {
-          let e = new Order(order.user, order.sessionId, order.order_stat, order.order_items, order.order_timestamp);
+          console.log(order);
+          let e = new Order(order.user, order.sessionId, order.order_stat, order.order_items, order.order_timestamp, order._id);
           this.order_list.push(e);
         });
       });
@@ -82,8 +91,8 @@ export class OrdersComponent implements OnInit {
         console.log(data);
         this.order_list.forEach(order => {
           if (order.$orderId === data) {
-            // alert user to cancel 
-            this.openSnackBar('client cancel order #' + data + ' !! ', 'i got it');
+            // alert user to cancel
+            this.openSnackBar('client cancel order #' + order.$order_db_id + ' !! ', 'i got it');
             // chnage flag
             order.$orderStat = -1;
           }
@@ -139,11 +148,41 @@ export class OrdersComponent implements OnInit {
   }
   removeOrder(ev, sessionId) {
     let t_list = this.order_list;
-    this.order_list.forEach(function(element, i) {
+    this.order_list.forEach(function (element, i) {
       if (element.$orderId === sessionId) {
         t_list.splice(i, 1);
-        return ;
+        return;
       }
+    });
+  }
+  /**
+   * acceptOrder
+   */
+  public acceptOrder(orderId: string, sessionId: string) {
+    this._orderService.updateOrder(orderId, 2).subscribe((data) => {
+      this._rtSocket.orderSendAction(orderId, sessionId, 'AcceptOrder');
+      this.order_list.forEach(element => {
+        if (element.$order_db_id === orderId) {
+          element.$orderStat = 2;
+        }
+      });
+    }, err => {
+      console.log(err);
+    });
+  }
+  /**
+   * rejectOrder
+   */
+  public rejectOrder(orderId: string, sessionId: string) {
+    this._orderService.updateOrder(orderId, -2).subscribe((data) => {
+      this._rtSocket.orderSendAction(orderId, sessionId, 'RejectOrder');
+      this.order_list.forEach(element => {
+        if (element.$order_db_id === orderId) {
+          element.$orderStat = -2;
+        }
+      });
+    }, err => {
+      console.log(err);
     });
   }
 

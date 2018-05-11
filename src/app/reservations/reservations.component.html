@@ -1,0 +1,37 @@
+<mat-toolbar color="accent">
+  Reservation Activity
+  <span fxFlex></span>
+  <mat-icon *ngIf="isConnected">wifi_tethering</mat-icon>
+  <mat-icon *ngIf="!isConnected">portable_wifi_off</mat-icon>
+</mat-toolbar>
+<div class="reservation-box" fxLayout="column" fxLayoutAlign="start center" fxLayoutGap="5px">
+  <mat-card *ngFor="let item of reservation_list" class="reservation-card">
+    <mat-card-title-group>
+      <mat-card-title>Reservation : #</mat-card-title>
+      <mat-card-subtitle>Client : </mat-card-subtitle>
+      <mat-card-subtitle>Passed at : </mat-card-subtitle>
+    </mat-card-title-group>
+    <mat-card-content>
+      
+    </mat-card-content>
+    <mat-card-actions align="start" *ngIf="mangeReservation == true && item.orderStat == 1">
+      <button mat-raised-button (click)="acceptOrder(item.order_db_id,item.orderId)" color="primary">Accept Reservation</button>
+      <button mat-raised-button (click)="rejectOrder(item.order_db_id,item.orderId)" color="warn">Reject Reservation</button>
+    </mat-card-actions>
+    <mat-card-actions *ngIf="item.orderStat != 1 && item.orderStat != 2">
+      <button mat-raised-button (click)="removeReservation(event,item.orderId)" color="warn">Remove from list</button>
+    </mat-card-actions>
+    <mat-card-actions *ngIf="item.orderStat == 2">
+      <button fxFlex mat-raised-button (click)="null" color="accent">Reservation ACCEPTED ...</button>
+    </mat-card-actions>
+    <mat-card-actions *ngIf="item.orderStat == -2">
+      <button fxFlex mat-raised-button (click)="null" color="accent">Reservation REJECTED ...</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-card *ngIf="reservation_list.length === 0">
+
+    <mat-card-content>
+      There is no actevity right now :D
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -22,6 +22,9 @@ import { AuthguardGuard } from './services/authguard.guard';
 import { UserService } from './services/user.service';
 import { OrdersComponent, OrderItemInfoComponent } from './orders/orders.component';
 import { RtSocketService } from './services/rt-socket.service';
+import { OrderService } from './services/order.service';
+import { ReservationsComponent } from './reservations/reservations.component';
+import { ReservationService } from './services/reservation.service';
 const routes: Routes = [
   {
     path: 'main', component: MainComponent, canActivate: [AuthguardGuard], children: [
@@ -50,7 +53,8 @@ const routes: Routes = [
     ActivityComponent,
     SettingsComponent,
     OrdersComponent,
-    OrderItemInfoComponent
+    OrderItemInfoComponent,
+    ReservationsComponent
   ],
   imports: [
     BrowserModule,
@@ -64,7 +68,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes, { useHash: true })
   ],
   entryComponents: [OrderItemInfoComponent],
-  providers: [AuthServiceService, AuthguardGuard, UserService, RtSocketService],
+  providers: [AuthServiceService, AuthguardGuard, UserService, RtSocketService, OrderService, ReservationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

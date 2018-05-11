@@ -1,6 +1,62 @@
 <div fxLayout="row" fxLayoutAlign="center start" fxLayoutGap="10px" fxFlex>
-  <div fxLayout="column" fxLayoutAlign="space-around center" fxLayoutGap="5px" fxFlex>
-    
+  <div fxLayout="row" fxLayoutWrap fxLayoutAlign="space-around center" fxLayoutGap="5px" fxFlex>
+    <mat-card class="basic-card">
+      <mat-card-header>
+        <mat-card-title>Active Users</mat-card-title>
+        <mat-card-subtitle>Number of current active user</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        15 user are active
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="basic-card"> 
+      <mat-card-header>
+        <mat-card-title>Ordering Stat</mat-card-title>
+        <mat-card-subtitle>Stat for ordring</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <h4>Total Order : 2005 | Total Resolved : 1448</h4>
+        <h4>Cancled By User : 200 | Cancled By Resto : 207</h4>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="basic-card" >
+      <mat-card-header>
+        <mat-card-title>Total User</mat-card-title>
+        <mat-card-subtitle>The Total Number Of user</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        1550 Total User
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="basic-card" >
+      <mat-card-header>
+        <mat-card-title>Reservation Stat</mat-card-title>
+        <mat-card-subtitle>Stat For Reservation</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <h4>Total Reservation : 2005 | Total Resolved : 1448</h4>
+        <h4>Cancled By User : 200 | Cancled By Resto : 207</h4>
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="basic-card" >
+      <mat-card-header>
+        <mat-card-title>Total Active Order</mat-card-title>
+        <mat-card-subtitle>Current active Order</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        Text content
+      </mat-card-content>
+    </mat-card>
+    <mat-card class="basic-card" >
+      <mat-card-header>
+        <mat-card-title>Total Active Reservation</mat-card-title>
+        <mat-card-subtitle>Current active Reservation</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        Text content
+      </mat-card-content>
+    </mat-card>
   </div>
   <app-orders [showType]="current" [mangeOrder]=false></app-orders>
 </div>

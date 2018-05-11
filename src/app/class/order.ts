@@ -5,13 +5,36 @@ export class Order {
     private orderStat: Number;
     private order_items: Array<OrderItems>;
     private order_timestamp: Number;
+    private order_db_id: String;
 
-    constructor(user: any, orderId: String, orderStat: Number, order_items: Array<OrderItems>, timestamp: Number) {
+    constructor(user: any, orderId: String, orderStat: Number, order_items: Array<OrderItems>, timestamp: Number, order_db_id?: String) {
         this.user = user;
         this.orderId = orderId;
         this.orderStat = orderStat;
         this.order_items = order_items;
         this.order_timestamp = timestamp;
+        if (order_db_id) {
+            this.order_db_id = order_db_id;
+
+        } else {
+            this.order_db_id = '-1';
+        }
+    }
+
+    /**
+     * Getter $order_db_id
+     * @return {String}
+     */
+    public get $order_db_id(): String {
+        return this.order_db_id;
+    }
+
+    /**
+     * Setter $order_db_id
+     * @param {String} value
+     */
+    public set $order_db_id(value: String) {
+        this.order_db_id = value;
     }
 
     /**
