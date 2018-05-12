@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, NgModule } from '@angular/core';
+import { RtSocketService } from '../services/rt-socket.service';
 @Component({
   selector: 'app-activity',
   templateUrl: './activity.component.html',
@@ -12,11 +12,12 @@ export class ActivityComponent implements OnInit {
     item: '',
     price: ''
   };
-  constructor() {
+  constructor(private _rtSocket: RtSocketService) {
     this.choices.push({ id: '1', name: 'dishes' }, { id: '2', name: 'pizza' }, { id: '3', name: 'sandwiches' });
   }
 
   ngOnInit() {
+    this._rtSocket.initSocket();
   }
 
 }

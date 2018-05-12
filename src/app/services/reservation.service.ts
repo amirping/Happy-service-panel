@@ -1,4 +1,4 @@
-import {HttpClient} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 
@@ -10,14 +10,12 @@ export class ReservationService {
   /**
    * getReservation
    */
-  public getReservation (reservationId?: string) {
-    return new Observable(observer => {
-      if (reservationId && reservationId.length > 5) {
-        observer.next(this._http.get(this.domain + '/' + reservationId));
-      } else {
-        observer.next(this._http.get(this.domain));
-      }
-    });
+  public getReservation(reservationId?: string) {
+    let url = this.domain;
+    if (reservationId && reservationId.length > 5) {
+      url += '/' + reservationId;
+    }
+    return (this._http.get(url));
   }
 
   /**

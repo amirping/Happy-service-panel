@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Inject } from '@angular/core';
+import { Component, OnInit, Input, Inject, NgModule } from '@angular/core';
 import { Order } from '../class/order';
 import { OrderItems } from '../class/order-items';
 import { HttpClient } from '@angular/common/http';
@@ -49,7 +49,7 @@ export class OrdersComponent implements OnInit {
   }
 
   private initIoConnection(): void {
-    this._rtSocket.initSocket();
+    // call only whene //this._rtSocket.initSocket();
 
     this._rtSocket.onMessage()
       .subscribe((message: any) => {
@@ -79,6 +79,7 @@ export class OrdersComponent implements OnInit {
         if (update_orders.length === 0) {
           this.order_list = [];
         }
+        this.order_list = [];
         update_orders.forEach(order => {
           console.log(order);
           let e = new Order(order.user, order.sessionId, order.order_stat, order.order_items, order.order_timestamp, order._id);

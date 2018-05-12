@@ -4,7 +4,7 @@ import { RtEvent } from '../class/rt-event';
 import { RtSocketService } from '../services/rt-socket.service';
 import { MatSnackBar } from '@angular/material';
 import { ReservationService } from '../services/reservation.service';
-const SERVER_URL = 'https://a522264b.ngrok.io';
+const SERVER_URL = 'https://23d7da96.ngrok.io';
 
 @Component({
   selector: 'app-reservations',
@@ -23,14 +23,20 @@ export class ReservationsComponent implements OnInit {
     this.initIoConnection();
   }
   private initIoConnection(): void {
-    this._rtSocket.initSocket();
-
+    // this._rtSocket.initSocket();
+    this._rtSocket.send('hello reservation');
+    this._rtSocket.onMessage()
+      .subscribe((message: any) => {
+        console.log('from reservation');
+      });
     this._rtSocket.onGetReservation()
       .subscribe((reservation: any) => {
         console.log('we got new reservation');
         console.log(reservation);
         // let e = new Order(order.user, order.sessionId, order.order_stat, order.order_items, order.order_timestamp, order._id);
-        this.reservation_list.push();
+        const e = new Reservation(reservation.user, reservation.sessionId, reservation.reservation_stat,
+          reservation.reservation_date, reservation.reservation_time, reservation.reservation_timestamp, reservation._id);
+        this.reservation_list.push(e);
         // play notif sound
         this.notify('neworder');
       });
@@ -41,10 +47,12 @@ export class ReservationsComponent implements OnInit {
         if (update_reservation.length === 0) {
           this.reservation_list = [];
         }
+        this.reservation_list = [];
         update_reservation.forEach(reservation => {
-            console.log(reservation);
-            // let e = new Order(order.user, order.sessionId, order.order_stat, order.order_items, order.order_timestamp, order._id);
-            this.reservation_list.push();
+          console.log(reservation);
+          const e = new Reservation(reservation.user, reservation.sessionId, reservation.reservation_stat,
+            reservation.reservation_date, reservation.reservation_time, reservation.reservation_timestamp, reservation._id);
+          this.reservation_list.push(e);
         });
       });
 

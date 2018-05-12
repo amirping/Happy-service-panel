@@ -4,14 +4,17 @@ import * as socketIo from 'socket.io-client';
 import { RtEvent } from '../class/rt-event';
 import { Order } from '../class/order';
 import { Reservation } from '../class/reservation';
-const SERVER_URL = 'https://65ce402e.ngrok.io';
+const SERVER_URL = 'https://23d7da96.ngrok.io';
 @Injectable()
 // tslint:disable-next-line:class-name
 export class RtSocketService {
 
   private socket;
 
-  constructor() { }
+  constructor() {
+    console.log('single instance man plz -----> call now');
+    this.initSocket();
+  }
 
   public initSocket(): void {
     this.socket = socketIo(SERVER_URL);
@@ -19,6 +22,13 @@ export class RtSocketService {
 
   public send(message): void {
     this.socket.emit('message', message);
+  }
+
+  /**
+   * Reconnect
+   */
+  public Reconnect() {
+    this.socket.emit('reconnect', 'Change Communication Channel');
   }
 
   /**
@@ -55,7 +65,9 @@ export class RtSocketService {
   // note : change any to reservation type after create reservation class
   public onGetReservation(): Observable<Reservation> {
     return new Observable<Reservation>(observer => {
-      this.socket.on('getReservation', (data: Reservation) => observer.next(data));
+      this.socket.on('getReservation', (data: Reservation) => {
+        observer.next(data);
+      });
     });
   }
 

@@ -25,6 +25,7 @@ import { RtSocketService } from './services/rt-socket.service';
 import { OrderService } from './services/order.service';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { ReservationService } from './services/reservation.service';
+import { CdkTableModule } from '@angular/cdk/table';
 const routes: Routes = [
   {
     path: 'main', component: MainComponent, canActivate: [AuthguardGuard], children: [

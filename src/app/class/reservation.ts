@@ -6,21 +6,39 @@ export class Reservation {
     private reservationStat: Number;
     private reservation_date: Date;
     private reservation_time: Time;
+    private reservation_timestamp: Number;
     private reservation_db_id: String;
-    constructor($user: any, $reservationId: String,
-        $reservationStat: Number, $reservation_date: Date, $reservation_time: Time,
+    constructor($user: any, $reservationId: String,$reservationStat: Number,
+        $reservation_date: Date, $reservation_time: Time, $reservation_timestamp: Number,
         $reservation_db_id?: String) {
         this.user = $user;
         this.reservationId = $reservationId;
         this.reservationStat = $reservationStat;
         this.reservation_date = $reservation_date;
         this.reservation_time = $reservation_time;
-        if (this.reservation_db_id) {
+        this.reservation_timestamp = $reservation_timestamp;
+        if ($reservation_db_id) {
             this.reservation_db_id = $reservation_db_id;
         } else {
             this.reservation_db_id = '-1';
         }
     }
+    /**
+     * Getter $reservation_timestamp
+     * @return {Number}
+     */
+    public get $reservation_timestamp(): Number {
+        return this.reservation_timestamp;
+    }
+
+    /**
+     * Setter $reservation_timestamp
+     * @param {Number} value
+     */
+    public set $reservation_timestamp(value: Number) {
+        this.reservation_timestamp = value;
+    }
+
 
     /**
      * Getter $user
